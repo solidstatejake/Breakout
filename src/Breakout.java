@@ -16,8 +16,6 @@ public class Breakout extends GraphicsProgram {
     private final int PADDLE_HEIGHT         = 10;
     private final double INITIAL_PADDLE_X = (SCREEN_WIDTH - PADDLE_WIDTH) / 2;
     private final double INITIAL_PADDLE_Y = (SCREEN_HEIGHT - PADDLE_WIDTH)* 0.9;
-    private final GPoint initialPaddleLocation = new GPoint(INITIAL_PADDLE_X,
-                                                            INITIAL_PADDLE_Y);
     private final GRect paddle = new GRect(PADDLE_WIDTH, PADDLE_HEIGHT);
 
 
@@ -40,13 +38,14 @@ public class Breakout extends GraphicsProgram {
     private void initializeScreen(){
         setSize(SCREEN_WIDTH,SCREEN_HEIGHT);
     }
+
     private void initializeInnerBorder(){
         innerBorder.setLocation(8, 86);
         add(innerBorder);
     }
 
     private void initializePaddle(){
-        paddle.setLocation(initialPaddleLocation);
+        paddle.setLocation(INITIAL_PADDLE_X, INITIAL_PADDLE_Y);
         add(paddle);
     }
 
