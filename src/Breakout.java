@@ -2,9 +2,6 @@
 import acm.graphics.*;
 import acm.program.GraphicsProgram;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
-
 
 public class Breakout extends GraphicsProgram {
 
@@ -27,10 +24,18 @@ public class Breakout extends GraphicsProgram {
     private final GOval ball = new GOval(BALL_RADIUS, BALL_RADIUS);
     private final GRect paddle = new GRect(PADDLE_WIDTH, PADDLE_HEIGHT);
     private final GRect brick = new GRect(BRICK_WIDTH, BRICK_HEIGHT);
-    private final GRect border = new GRect(400, 600);
-    private final GRect border2 = new GRect(415, 685);
+    private final GRect innerBorder = new GRect(400, 600);
+    private final GRect outerBorder = new GRect(415, 685);
 
-    private void initializeBorder(){
+    private void initializeScreen(){
+        setSize(SCREEN_WIDTH,SCREEN_HEIGHT);
+    }
+    private void initializeInnerBorder(){
+        innerBorder.setLocation(8, 86);
+        add(innerBorder);
+    }
+
+    private void initializeOuterBorder(){
 
     }
 
@@ -51,11 +56,8 @@ public class Breakout extends GraphicsProgram {
     }
 
     private void initialize(){
-        // Set screen size.
-        setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-        // The y-coordinate is set to 86
-        border.setLocation(8, 86);
-        add(border);
+        initializeScreen();
+        initializeInnerBorder();
 
     }
 
