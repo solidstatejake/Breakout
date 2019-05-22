@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="df0f53c2-d39f-4ad9-8fd9-425d4c9276df" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Breakout/Breakout.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Breakout/Breakout.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Breakout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Breakout.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -19,8 +17,8 @@
       <file leaf-file-name="Breakout.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Breakout.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+            <state relative-caret-position="310">
+              <caret line="30" column="49" lean-forward="true" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -168,12 +166,12 @@
       <updated>1558407921947</updated>
       <workItem from="1558407924674" duration="7901000" />
       <workItem from="1558476726621" duration="4309000" />
-      <workItem from="1558481714079" duration="783000" />
+      <workItem from="1558481714079" duration="1281000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12993000" />
+    <option name="totallyTimeSpent" value="13491000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="1027" extended-state="6" />
@@ -190,7 +188,7 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32903227" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32903227" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32903227" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.14946237" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16117217" />
@@ -264,8 +262,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Breakout.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        <state relative-caret-position="310">
+          <caret line="30" column="49" lean-forward="true" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
