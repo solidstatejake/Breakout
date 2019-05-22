@@ -1,7 +1,3 @@
-/**
- *  
- */
-
 import acm.graphics.*;
 import acm.program.GraphicsProgram;
 import acm.util.RandomGenerator;
@@ -12,18 +8,18 @@ import java.awt.event.KeyEvent;
 
 public class Breakout extends GraphicsProgram {
 
-    // Screen
+    // Screen data
     private final int SCREEN_WIDTH          = 416;
     private final int SCREEN_HEIGHT         = 716;
 
-    //Border
+    // Border data
     private final int BORDER_WIDTH = 400;
     private final int BORDER_HEIGHT = 600;
     private final int BORDER_OFFSET_NORTH = 86; //From screen top to border top.
     private final int BORDER_OFFSET = 8;
     private final GRect border = new GRect(BORDER_WIDTH, BORDER_HEIGHT);
 
-
+    // Paddle data
     private final int PADDLE_WIDTH          = 60;
     private final int PADDLE_HEIGHT         = 10;
     private final double INITIAL_PADDLE_X = (SCREEN_WIDTH - PADDLE_WIDTH) / 2;
@@ -31,11 +27,11 @@ public class Breakout extends GraphicsProgram {
     private final GRect paddle = new GRect(PADDLE_WIDTH, PADDLE_HEIGHT);
     private final double PADDLE_SPEED_FACTOR = 0.1;
 
-
+    // Ball data
     private final int BALL_RADIUS           = 10;
     private final GOval ball = new GOval(BALL_RADIUS, BALL_RADIUS);
 
-
+    // Brick data
     private final int BRICK_WIDTH           = 36;
     private final int BRICK_HEIGHT          = 15;
     private final int BRICK_SPACING         = 4;
@@ -44,9 +40,23 @@ public class Breakout extends GraphicsProgram {
     private final int BRICK_OFFSET_X        = 2;
     private final int BRICK_OFFSET_Y        = 60;
 
+    // Lives data
+    private int lives = 3;
+    private final GOval life1 = new GOval(BALL_RADIUS, BALL_RADIUS);
+    private final GOval life2 = new GOval(BALL_RADIUS, BALL_RADIUS);
+    private final GOval life3 = new GOval(BALL_RADIUS, BALL_RADIUS);
+
+    private final int LIFE_CONTAINER_WIDTH = 2 * ( (3 * BALL_RADIUS) + 10); //80
+    private final int LIFE_CONTAINER_HEIGHT = 2 * (BALL_RADIUS + 5);        //30
+    private final GRect lifeContainer = new GRect(LIFE_CONTAINER_WIDTH,
+                                                  LIFE_CONTAINER_HEIGHT);
+
+
+    private final GLabel gameOverBanner = new GLabel("GAMEOVER");
+    // Game logistics data
     private boolean gameover = false;
     private double velocity_x, velocity_y;
-    private int lives = 3;
+
 
 
     /**
@@ -67,9 +77,15 @@ public class Breakout extends GraphicsProgram {
         x = (SCREEN_WIDTH - header.getWidth()) / 2;
         y = header.getHeight();
         header.setLocation(x, y);
+        life1.setFillColor(Color.WHITE);
+        life2.setFillColor(Color.WHITE);
+        life3.setFillColor(Color.WHITE);
+        life1.setFilled(true);
+        life2.setFilled(true);
+        life3.setFilled(true);
+
         add(header);
     }
-
 
     /**
      * Create the border in which the actual game is played. Color it
@@ -80,6 +96,13 @@ public class Breakout extends GraphicsProgram {
         border.setFillColor(Color.LIGHT_GRAY);
         border.setFilled(true);
         add(border);
+    }
+
+    private void initializeLives(){
+        int lifeContainerX = SCREEN_WIDTH - BORDER_OFFSET - LIFE_CONTAINER_WIDTH; //328
+        int lifeContainerY = BORDER_OFFSET_NORTH - LIFE_CONTAINER_HEIGHT;         //56
+        lifeContainer.setLocation(lifeContainerX, lifeContainerY);
+        add(lifeContainer);
     }
 
     /**
@@ -166,17 +189,22 @@ public class Breakout extends GraphicsProgram {
         }
     }
 
+    private void initializeGameOverBanner(){
+        gameOverBanner.setFont("Helvetica-40");
+    }
 
     /**
      * Aggregate all initialization methods into one place.
      */
     private void initialize(){
         initializeScreen();
+        initializeHeader();
         initializeBorder();
+        initializeLives();
         initializePaddle();
         initializeBall();
         initializeBricks();
-        initializeHeader();
+
     }
 
     /**
@@ -283,6 +311,30 @@ public class Breakout extends GraphicsProgram {
         moveBall();
     }
 
+    private void isLifeLost(){
+        if ((ball.getY() + BALL_RADIUS) >= (BORDER_OFFSET_NORTH + BORDER_HEIGHT)){
+            pause(1000);
+            initializeBall();
+            pause(1000);
+            lives -=1;
+        }
+    }
+
+    private void isGameOver(){
+        if (lives == 0){
+            gameover = true;
+            System.out.println("THE GAME HAS ENDED!");
+        }
+    }
+
+    private void playGame(){
+        addKeyListeners();
+        ballHandler();
+        isLifeLost();
+        isGameOver();
+        pause(15);
+    }
+
     /**
      * Register left-arrow-key and right-arrow-key events to move paddle.
      * @param event
@@ -310,12 +362,9 @@ public class Breakout extends GraphicsProgram {
     public void run(){
         initialize();
         while(!gameover){
-            addKeyListeners();
-            ballHandler();
-            pause(15);
+            playGame();
         }
+        // Loop will only be exited if the game is over.
 
     }
-
-
 }
