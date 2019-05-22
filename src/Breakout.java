@@ -13,7 +13,7 @@ public class Breakout extends GraphicsProgram {
     private final int BORDER_WIDTH = 400;
     private final int BORDER_HEIGHT = 600;
     private final int BORDER_NORTH_OFFSET = 86;
-    private final int BORDER_OFFSET = 8;
+    private final int BORDER_OFFSET = 4;
 
     private final int PADDLE_WIDTH          = 60;
     private final int PADDLE_HEIGHT         = 10;
@@ -23,11 +23,16 @@ public class Breakout extends GraphicsProgram {
 
 
     private final int BALL_RADIUS           = 10;
+    private final int BALL_SPEED            = 10;
 
     private final int BRICK_WIDTH           = 36;
     private final int BRICK_HEIGHT          = 8;
+    private final int BRICK_SPACING         = 4;
+    private final int BRICKS_IN_ROW         = 10;
+    private final int BRICKS_IN_COL         = 10;
 
-    private final int BALL_SPEED            = 10;
+
+
     private final GPoint canvasCenter = new GPoint(
             (SCREEN_WIDTH - BALL_RADIUS)/2,
             (SCREEN_HEIGHT - BALL_RADIUS)/2 + BORDER_NORTH_OFFSET);
@@ -35,17 +40,17 @@ public class Breakout extends GraphicsProgram {
     //Not yet the proper initial paddle location.
     private final GOval ball = new GOval(BALL_RADIUS, BALL_RADIUS);
     private final GRect brick = new GRect(BRICK_WIDTH, BRICK_HEIGHT);
-    private final GRect innerBorder = new GRect(BORDER_WIDTH,
+    private final GRect border = new GRect(BORDER_WIDTH,
             BORDER_HEIGHT);
 
     private void initializeScreen(){
         setSize(SCREEN_WIDTH,SCREEN_HEIGHT);
     }
 
-    private void initializeInnerBorder(){
-        innerBorder.setLocation(BORDER_OFFSET,
+    private void initializeBorder(){
+        border.setLocation(2*BORDER_OFFSET,
                 BORDER_NORTH_OFFSET);
-        add(innerBorder);
+        add(border);
     }
 
     private void initializePaddle(){
@@ -60,6 +65,7 @@ public class Breakout extends GraphicsProgram {
 
     private void intitializeBricks(){
 
+
     }
 
     private void initializeHeader(){
@@ -70,7 +76,7 @@ public class Breakout extends GraphicsProgram {
 
     private void initialize(){
         initializeScreen();
-        initializeInnerBorder();
+        initializeBorder();
         initializePaddle();
         initializeBall();
     }
