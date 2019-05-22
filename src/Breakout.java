@@ -12,8 +12,8 @@ public class Breakout extends GraphicsProgram {
     //Border
     private final int BORDER_WIDTH = 400;
     private final int BORDER_HEIGHT = 600;
-    private final int BORDER_NORTH_OFFSET = 86;
-    private final int BORDER_OFFSET = 4;
+    private final int BORDER_OFFSET_NORTH = 86; //From screen top to border top.
+    private final int BORDER_OFFSET = 8;
 
     private final int PADDLE_WIDTH          = 60;
     private final int PADDLE_HEIGHT         = 10;
@@ -35,7 +35,7 @@ public class Breakout extends GraphicsProgram {
 
     private final GPoint canvasCenter = new GPoint(
             (SCREEN_WIDTH - BALL_RADIUS)/2,
-            (SCREEN_HEIGHT - BALL_RADIUS)/2 + BORDER_NORTH_OFFSET);
+            (SCREEN_HEIGHT - BALL_RADIUS)/2 + BORDER_OFFSET_NORTH);
 
     //Not yet the proper initial paddle location.
     private final GOval ball = new GOval(BALL_RADIUS, BALL_RADIUS);
@@ -48,8 +48,8 @@ public class Breakout extends GraphicsProgram {
     }
 
     private void initializeBorder(){
-        border.setLocation(2*BORDER_OFFSET,
-                BORDER_NORTH_OFFSET);
+        border.setLocation(BORDER_OFFSET,
+                BORDER_OFFSET_NORTH);
         add(border);
     }
 
@@ -63,8 +63,20 @@ public class Breakout extends GraphicsProgram {
         add(ball);
     }
 
-    private void intitializeBricks(){
+    private void initializeBricks(){
+        int xCoord = 0, yCoord = 0;
 
+        for (int row = 0; row < BRICKS_IN_ROW; row++) {
+
+            yCoord = 20 + BORDER_OFFSET_NORTH + BRICK_SPACING + (row * BRICK_HEIGHT);
+
+            for (int col = 0; col < BRICKS_IN_COL; col++) {
+
+                xCoord = BORDER_OFFSET + 20 + (col * BRICK_WIDTH);
+
+                add(new GRect(BRICK_WIDTH, BRICK_HEIGHT), xCoord, yCoord);
+            }
+        }
 
     }
 
@@ -79,6 +91,7 @@ public class Breakout extends GraphicsProgram {
         initializeBorder();
         initializePaddle();
         initializeBall();
+        initializeBricks();
     }
 
     public void run(){
