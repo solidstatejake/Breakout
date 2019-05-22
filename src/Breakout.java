@@ -2,6 +2,8 @@
 import acm.graphics.*;
 import acm.program.GraphicsProgram;
 import acm.program.Program;
+import acm.util.RandomGenerator;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -48,7 +50,7 @@ public class Breakout extends GraphicsProgram {
     private final double CANVAS_CENTER_Y = SCREEN_HEIGHT / 2;
 
     private boolean gameover = false;
-    private int velocity_x,
+    private double velocity_x,
                 velocity_y;
     private double paddle_x;
 
@@ -77,6 +79,7 @@ public class Breakout extends GraphicsProgram {
         ball.setLocation(x, y);
         ball.setFillColor(Color.WHITE);
         ball.setFilled(true);
+        assignInitalVelocities();
         add(ball);
     }
 
@@ -146,7 +149,6 @@ public class Breakout extends GraphicsProgram {
         add(header);
     }
 
-
     private void initialize(){
         initializeScreen();
         initializeBorder();
@@ -156,27 +158,79 @@ public class Breakout extends GraphicsProgram {
         initializeHeader();
     }
 
-    private void updatePaddle(){
+    private void moveBall(){
+        ball.setLocation(ball.getX() + velocity_x,ball.getY() + velocity_y);
+    }
 
+    private void assignInitalVelocities(){
+        RandomGenerator rgen = new RandomGenerator();
+        velocity_x = rgen.nextDouble(-5, 5);
+        velocity_y = rgen.nextDouble(-5, 5);
+    }
+
+    private boolean isCollidingWithHorizontalWall(){
+        double  leftSideOfBall = ball.getX(),
+                rightSideOfBall = ball.getX() + (2 * BALL_RADIUS);
+        int correctionFactor = 10, rightWall, leftWall;
+        leftWall = BORDER_OFFSET;
+        rightWall = (BORDER_OFFSET + BORDER_WIDTH + correctionFactor);
+
+        if (leftSideOfBall <= leftWall || rightSideOfBall  >= rightWall){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isCollidingWithVerticalWall(){
+        double  topOfBall = ball.getY(),
+                bottomOfBall = ball.getY() + (2 * BALL_RADIUS);
+        int correctionFactor = 10, topWall, bottomWall;
+        topWall = BORDER_OFFSET_NORTH;
+        bottomWall = BORDER_OFFSET_NORTH + BORDER_HEIGHT + correctionFactor;
+
+        if (topOfBall <= topWall || bottomOfBall >= bottomWall){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void keyPressed(KeyEvent event){
         int key = event.getKeyCode();
         switch(key){
             case KeyEvent.VK_LEFT:
-                paddle.setLocation(paddle.getX() - 0.05, paddle.getY());
+                if((paddle.getX() - 0.05) > BORDER_OFFSET) {
+                    paddle.setLocation(paddle.getX() - 0.05, paddle.getY());
+                }
                 break;
             case KeyEvent.VK_RIGHT:
-                paddle.setLocation(paddle.getX() + 0.05, paddle.getY());
+                if(paddle.getX() < SCREEN_WIDTH -
+                        BORDER_OFFSET - PADDLE_WIDTH + 0.05) {
+                    paddle.setLocation(paddle.getX() + 0.05, paddle.getY());
+                }
         }
+    }
+
+    /**
+     * ballHandler() will change the velocity of the ball if it collides with
+     * a surface.
+     */
+    private void ballHandler(){
+        if (isCollidingWithHorizontalWall()){
+            velocity_x = -velocity_x;
+        } else if (isCollidingWithVerticalWall()){
+            velocity_y = -velocity_y;
+        }
+        moveBall();
     }
 
     public void run(){
         initialize();
-
         while(!gameover){
             addKeyListeners();
-            pause(20);
+            ballHandler();
+            pause(10);
         }
 
     }
