@@ -1,7 +1,9 @@
 import acm.graphics.*;
 import acm.program.GraphicsProgram;
+import acm.util.MediaTools;
 import acm.util.RandomGenerator;
 
+import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
@@ -46,6 +48,7 @@ public class Breakout extends GraphicsProgram {
     private final GOval life2 = new GOval(BALL_RADIUS, BALL_RADIUS);
     private final GOval life3 = new GOval(BALL_RADIUS, BALL_RADIUS);
 
+    // Lives container data
     private final int LIVES_CONTAINER_WIDTH = 2 * ( (3 * BALL_RADIUS)); //80
     private final int LIVES_CONTAINER_HEIGHT = 2 * (BALL_RADIUS + 5);        //30
     private final GRect livesContainer = new GRect(LIVES_CONTAINER_WIDTH,
@@ -57,7 +60,7 @@ public class Breakout extends GraphicsProgram {
     private boolean gameover = false;
     private double velocity_x, velocity_y;
 
-
+    AudioClip bounceSound = MediaTools.loadAudioClip("bounce.au");
 
     /**
      * Set the size of the screen and set the background color as GRAY.
@@ -268,8 +271,8 @@ public class Breakout extends GraphicsProgram {
      *         wall.
      */
     private boolean isCollidingWithHorizontalWall(){
-        double  leftSideOfBall = ball.getX(),
-                rightSideOfBall = ball.getX() + (2 * BALL_RADIUS);
+        double leftSideOfBall = ball.getX();
+        double rightSideOfBall = ball.getX() + (2 * BALL_RADIUS);
         int correctionFactor = 10, rightWall, leftWall;
         leftWall = BORDER_OFFSET;
         rightWall = (BORDER_OFFSET + BORDER_WIDTH + correctionFactor);
@@ -327,13 +330,17 @@ public class Breakout extends GraphicsProgram {
      */
     private void ballHandler(){
         if (isCollidingWithHorizontalWall()){
+            bounceSound.play();
             velocity_x = -velocity_x;
         } else if (isCollidingWithVerticalWall()) {
+            bounceSound.play();
             velocity_y = -velocity_y;
         } else if (isCollidingWithPaddle()) {
+            bounceSound.play();
             velocity_y = -velocity_y;
         } else if (isCollidingWithBrick()){
                 brickCollisionHandler();
+                bounceSound.play();
         }
         moveBall();
     }
