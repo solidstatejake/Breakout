@@ -2,6 +2,8 @@
 import acm.graphics.*;
 import acm.program.GraphicsProgram;
 
+import java.awt.*;
+
 
 public class Breakout extends GraphicsProgram {
 
@@ -45,6 +47,7 @@ public class Breakout extends GraphicsProgram {
 
     private void initializeScreen(){
         setSize(SCREEN_WIDTH,SCREEN_HEIGHT);
+        setBackground(Color.GRAY);
     }
 
     private void initializeBorder(){
@@ -54,11 +57,15 @@ public class Breakout extends GraphicsProgram {
 
     private void initializePaddle(){
         paddle.setLocation(INITIAL_PADDLE_X, INITIAL_PADDLE_Y);
+        paddle.setFillColor(Color.BLACK);
+        paddle.setFilled(true);
         add(paddle);
     }
 
     private void initializeBall(){
         ball.setLocation(canvasCenter);
+        ball.setFillColor(Color.WHITE);
+        ball.setFilled(true);
         add(ball);
     }
 
@@ -72,17 +79,39 @@ public class Breakout extends GraphicsProgram {
                 yCoord = 60 + BORDER_OFFSET_NORTH + (row * ((BRICK_SPACING / 2) + BRICK_HEIGHT));
             }
 
-//            yCoord = 20 + BORDER_OFFSET_NORTH + BRICK_SPACING + (row * BRICK_HEIGHT);
-
             for (int col = 0; col < BRICKS_IN_COL; col++) {
                 if(col == 0){
                     xCoord =2 +  BORDER_OFFSET;
                 }else {
                     xCoord = 2 + BORDER_OFFSET + (col * (BRICK_SPACING + BRICK_WIDTH));
                 }
-//                xCoord = BORDER_OFFSET + 20 + (col * BRICK_WIDTH);
 
-                add(new GRect(BRICK_WIDTH, BRICK_HEIGHT), xCoord, yCoord);
+                GRect currentBrick = new GRect(BRICK_WIDTH, BRICK_HEIGHT);
+                switch(row){
+                    case 0:
+                    case 1:
+                        currentBrick.setFillColor(Color.RED);
+                        break;
+                    case 2:
+                    case 3:
+                        currentBrick.setFillColor(Color.ORANGE);
+                        break;
+                    case 4:
+                    case 5:
+                        currentBrick.setFillColor(Color.YELLOW);
+                        break;
+                    case 6:
+                    case 7:
+                        currentBrick.setFillColor(Color.GREEN);
+                        break;
+                    case 8:
+                    case 9:
+                        currentBrick.setFillColor(Color.CYAN);
+                        break;
+                }
+                currentBrick.setFilled(true);
+                System.out.println(currentBrick.getFillColor());
+                add(currentBrick, xCoord, yCoord);
             }
         }
 
