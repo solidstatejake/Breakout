@@ -26,7 +26,7 @@ public class Breakout extends GraphicsProgram {
     private final int BALL_SPEED            = 10;
 
     private final int BRICK_WIDTH           = 36;
-    private final int BRICK_HEIGHT          = 8;
+    private final int BRICK_HEIGHT          = 15;
     private final int BRICK_SPACING         = 4;
     private final int BRICKS_IN_ROW         = 10;
     private final int BRICKS_IN_COL         = 10;
@@ -48,8 +48,7 @@ public class Breakout extends GraphicsProgram {
     }
 
     private void initializeBorder(){
-        border.setLocation(BORDER_OFFSET,
-                BORDER_OFFSET_NORTH);
+        border.setLocation(BORDER_OFFSET, BORDER_OFFSET_NORTH);
         add(border);
     }
 
@@ -67,12 +66,21 @@ public class Breakout extends GraphicsProgram {
         int xCoord = 0, yCoord = 0;
 
         for (int row = 0; row < BRICKS_IN_ROW; row++) {
+            if (row == 0) {
+                yCoord = BORDER_OFFSET_NORTH + 60;
+            } else{
+                yCoord = 60 + BORDER_OFFSET_NORTH + (row * ((BRICK_SPACING / 2) + BRICK_HEIGHT));
+            }
 
-            yCoord = 20 + BORDER_OFFSET_NORTH + BRICK_SPACING + (row * BRICK_HEIGHT);
+//            yCoord = 20 + BORDER_OFFSET_NORTH + BRICK_SPACING + (row * BRICK_HEIGHT);
 
             for (int col = 0; col < BRICKS_IN_COL; col++) {
-
-                xCoord = BORDER_OFFSET + 20 + (col * BRICK_WIDTH);
+                if(col == 0){
+                    xCoord =2 +  BORDER_OFFSET;
+                }else {
+                    xCoord = 2 + BORDER_OFFSET + (col * (BRICK_SPACING + BRICK_WIDTH));
+                }
+//                xCoord = BORDER_OFFSET + 20 + (col * BRICK_WIDTH);
 
                 add(new GRect(BRICK_WIDTH, BRICK_HEIGHT), xCoord, yCoord);
             }
