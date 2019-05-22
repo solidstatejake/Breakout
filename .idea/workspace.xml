@@ -17,12 +17,19 @@
       <file leaf-file-name="Breakout.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Breakout.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="139" lean-forward="true" selection-start-line="139" selection-end-line="139" />
+            <state relative-caret-position="445">
+              <caret line="168" column="35" lean-forward="true" selection-start-line="168" selection-start-column="35" selection-end-line="168" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4128#4129#0" expanded="true" />
-                <element signature="e#4156#4157#0" expanded="true" />
+                <element signature="method#initializeScreen#0;class#Breakout#0" />
+                <element signature="method#initializeBorder#0;class#Breakout#0" />
+                <element signature="method#initializePaddle#0;class#Breakout#0" />
+                <element signature="method#initializeBall#0;class#Breakout#0" />
+                <element signature="docComment;method#determineBrickColor#0;class#Breakout#0" />
+                <element signature="method#determineBrickColor#0;class#Breakout#0" />
+                <element signature="method#initializeBricks#0;class#Breakout#0" />
+                <element signature="method#initializeHeader#0;class#Breakout#0" />
+                <element signature="method#initialize#0;class#Breakout#0" />
               </folding>
             </state>
           </provider>
@@ -70,9 +77,8 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="49" />
-    <option name="y" value="31" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
     <option name="width" value="1680" />
     <option name="height" value="1027" />
   </component>
@@ -112,6 +118,28 @@
               <item name="Breakout" type="b2602c69:ProjectViewProjectNode" />
               <item name="Breakout" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Breakout" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="Breakout" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="acm.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Breakout" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="acm.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="acm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Breakout" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="acm.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="acm" type="462c0819:PsiDirectoryNode" />
+              <item name="program" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -200,12 +228,12 @@
       <workItem from="1558407924674" duration="7901000" />
       <workItem from="1558476726621" duration="4309000" />
       <workItem from="1558481714079" duration="6544000" />
-      <workItem from="1558488407157" duration="2347000" />
+      <workItem from="1558488407157" duration="3825000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21101000" />
+    <option name="totallyTimeSpent" value="22579000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="1027" extended-state="6" />
@@ -221,11 +249,11 @@
       <window_info anchor="right" id="Maven Projects" order="3" weight="0.32967034" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32903227" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.13763441" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.11612903" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.13763441" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.11612903" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.33394384" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.33394384" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24969475" />
@@ -247,6 +275,11 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+  </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
@@ -258,8 +291,15 @@
           <caret line="65" column="11" selection-start-line="64" selection-start-column="35" selection-end-line="65" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4128#4129#0" expanded="true" />
-            <element signature="e#4156#4157#0" expanded="true" />
+            <element signature="method#initializeScreen#0;class#Breakout#0" />
+            <element signature="method#initializeBorder#0;class#Breakout#0" />
+            <element signature="method#initializePaddle#0;class#Breakout#0" />
+            <element signature="method#initializeBall#0;class#Breakout#0" />
+            <element signature="docComment;method#determineBrickColor#0;class#Breakout#0" />
+            <element signature="method#determineBrickColor#0;class#Breakout#0" />
+            <element signature="method#initializeBricks#0;class#Breakout#0" />
+            <element signature="method#initializeHeader#0;class#Breakout#0" />
+            <element signature="method#initialize#0;class#Breakout#0" />
           </folding>
         </state>
       </provider>
@@ -284,8 +324,15 @@
           <caret line="15" column="16" lean-forward="true" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4128#4129#0" expanded="true" />
-            <element signature="e#4156#4157#0" expanded="true" />
+            <element signature="method#initializeScreen#0;class#Breakout#0" />
+            <element signature="method#initializeBorder#0;class#Breakout#0" />
+            <element signature="method#initializePaddle#0;class#Breakout#0" />
+            <element signature="method#initializeBall#0;class#Breakout#0" />
+            <element signature="docComment;method#determineBrickColor#0;class#Breakout#0" />
+            <element signature="method#determineBrickColor#0;class#Breakout#0" />
+            <element signature="method#initializeBricks#0;class#Breakout#0" />
+            <element signature="method#initializeHeader#0;class#Breakout#0" />
+            <element signature="method#initialize#0;class#Breakout#0" />
           </folding>
         </state>
       </provider>
@@ -303,8 +350,15 @@
           <caret line="12" column="22" lean-forward="true" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4128#4129#0" expanded="true" />
-            <element signature="e#4156#4157#0" expanded="true" />
+            <element signature="method#initializeScreen#0;class#Breakout#0" />
+            <element signature="method#initializeBorder#0;class#Breakout#0" />
+            <element signature="method#initializePaddle#0;class#Breakout#0" />
+            <element signature="method#initializeBall#0;class#Breakout#0" />
+            <element signature="docComment;method#determineBrickColor#0;class#Breakout#0" />
+            <element signature="method#determineBrickColor#0;class#Breakout#0" />
+            <element signature="method#initializeBricks#0;class#Breakout#0" />
+            <element signature="method#initializeHeader#0;class#Breakout#0" />
+            <element signature="method#initialize#0;class#Breakout#0" />
           </folding>
         </state>
       </provider>
@@ -328,21 +382,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$USER_HOME$/Downloads/acm.jar!/acm/program/ProgramActionListener.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Downloads/acm.jar!/acm/program/Program.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="456" column="7" lean-forward="true" selection-start-line="456" selection-start-column="7" selection-end-line="456" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://$USER_HOME$/Downloads/acm.jar!/acm/program/GraphicsProgram.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
+        <state relative-caret-position="-7">
           <caret line="49" column="22" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Breakout.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="139" lean-forward="true" selection-start-line="139" selection-end-line="139" />
+        <state relative-caret-position="445">
+          <caret line="168" column="35" lean-forward="true" selection-start-line="168" selection-start-column="35" selection-end-line="168" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4128#4129#0" expanded="true" />
-            <element signature="e#4156#4157#0" expanded="true" />
+            <element signature="method#initializeScreen#0;class#Breakout#0" />
+            <element signature="method#initializeBorder#0;class#Breakout#0" />
+            <element signature="method#initializePaddle#0;class#Breakout#0" />
+            <element signature="method#initializeBall#0;class#Breakout#0" />
+            <element signature="docComment;method#determineBrickColor#0;class#Breakout#0" />
+            <element signature="method#determineBrickColor#0;class#Breakout#0" />
+            <element signature="method#initializeBricks#0;class#Breakout#0" />
+            <element signature="method#initializeHeader#0;class#Breakout#0" />
+            <element signature="method#initialize#0;class#Breakout#0" />
           </folding>
         </state>
       </provider>

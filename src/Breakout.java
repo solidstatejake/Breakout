@@ -1,8 +1,12 @@
 
 import acm.graphics.*;
 import acm.program.GraphicsProgram;
-
+import acm.program.Program;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
 
 public class Breakout extends GraphicsProgram {
@@ -28,7 +32,6 @@ public class Breakout extends GraphicsProgram {
 
 
     private final int BALL_RADIUS           = 10;
-    private final int BALL_SPEED            = 10;
     private final GOval ball = new GOval(BALL_RADIUS, BALL_RADIUS);
 
 
@@ -43,6 +46,11 @@ public class Breakout extends GraphicsProgram {
 
     private final double CANVAS_CENTER_X = SCREEN_WIDTH / 2;
     private final double CANVAS_CENTER_Y = SCREEN_HEIGHT / 2;
+
+    private boolean gameover = false;
+    private int velocity_x,
+                velocity_y;
+    private double paddle_x;
 
 
 
@@ -148,8 +156,29 @@ public class Breakout extends GraphicsProgram {
         initializeHeader();
     }
 
+    private void updatePaddle(){
+
+    }
+
+    public void keyPressed(KeyEvent event){
+        int key = event.getKeyCode();
+        switch(key){
+            case KeyEvent.VK_LEFT:
+                paddle.setLocation(paddle.getX() - 0.05, paddle.getY());
+                break;
+            case KeyEvent.VK_RIGHT:
+                paddle.setLocation(paddle.getX() + 0.05, paddle.getY());
+        }
+    }
+
     public void run(){
         initialize();
+
+        while(!gameover){
+            addKeyListeners();
+            pause(20);
+        }
+
     }
 
 
