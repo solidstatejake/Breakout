@@ -46,10 +46,10 @@ public class Breakout extends GraphicsProgram {
     private final GOval life2 = new GOval(BALL_RADIUS, BALL_RADIUS);
     private final GOval life3 = new GOval(BALL_RADIUS, BALL_RADIUS);
 
-    private final int LIFE_CONTAINER_WIDTH = 2 * ( (3 * BALL_RADIUS) + 10); //80
-    private final int LIFE_CONTAINER_HEIGHT = 2 * (BALL_RADIUS + 5);        //30
-    private final GRect lifeContainer = new GRect(LIFE_CONTAINER_WIDTH,
-                                                  LIFE_CONTAINER_HEIGHT);
+    private final int LIVES_CONTAINER_WIDTH = 2 * ( (3 * BALL_RADIUS)); //80
+    private final int LIVES_CONTAINER_HEIGHT = 2 * (BALL_RADIUS + 5);        //30
+    private final GRect livesContainer = new GRect(LIVES_CONTAINER_WIDTH,
+                                                   LIVES_CONTAINER_HEIGHT);
 
 
     private final GLabel gameOverBanner = new GLabel("GAMEOVER");
@@ -98,11 +98,32 @@ public class Breakout extends GraphicsProgram {
         add(border);
     }
 
+    /**
+     * Create and display the livesContainer and three lives on the game screen.
+     */
     private void initializeLives(){
-        int lifeContainerX = SCREEN_WIDTH - BORDER_OFFSET - LIFE_CONTAINER_WIDTH; //328
-        int lifeContainerY = BORDER_OFFSET_NORTH - LIFE_CONTAINER_HEIGHT;         //56
-        lifeContainer.setLocation(lifeContainerX, lifeContainerY);
-        add(lifeContainer);
+        double lifeContainerX = SCREEN_WIDTH - BORDER_OFFSET - LIVES_CONTAINER_WIDTH; //328
+        double lifeContainerY = BORDER_OFFSET_NORTH - LIVES_CONTAINER_HEIGHT;         //56
+        double life1_x = lifeContainerX + BALL_RADIUS;
+        double life2_x = life1_x + BALL_RADIUS + 5;
+        double life3_x = life2_x + BALL_RADIUS + 5;
+        double lives_y = lifeContainerY + BALL_RADIUS;
+        livesContainer.setLocation(lifeContainerX, lifeContainerY);
+        life1.setLocation(life1_x, lives_y);
+        life2.setLocation(life2_x, lives_y);
+        life3.setLocation(life3_x, lives_y);
+        livesContainer.setFillColor(Color.BLACK);
+        livesContainer.setFilled(true);
+        life1.setFillColor(Color.WHITE);
+        life2.setFillColor(Color.WHITE);
+        life3.setFillColor(Color.WHITE);
+        life1.setFilled(true);
+        life2.setFilled(true);
+        life3.setFilled(true);
+        add(livesContainer);
+        add(life1);
+        add(life2);
+        add(life3);
     }
 
     /**
@@ -189,8 +210,15 @@ public class Breakout extends GraphicsProgram {
         }
     }
 
+    /**
+     * Create, position, and add the gameover banner to the screen.
+     */
     private void initializeGameOverBanner(){
-        gameOverBanner.setFont("Helvetica-40");
+        double x = (SCREEN_WIDTH - gameOverBanner.getWidth()) / 4;
+        double y = SCREEN_HEIGHT / 2;
+        gameOverBanner.setFont("Helvetica-80");
+        gameOverBanner.setLocation(x, y);
+        add(gameOverBanner);
     }
 
     /**
@@ -204,7 +232,6 @@ public class Breakout extends GraphicsProgram {
         initializePaddle();
         initializeBall();
         initializeBricks();
-
     }
 
     /**
@@ -311,6 +338,10 @@ public class Breakout extends GraphicsProgram {
         moveBall();
     }
 
+    /**
+     * Checks if the player has lost a life by checking if the ball has hit the
+     * bottom of the border.
+     */
     private void isLifeLost(){
         if ((ball.getY() + BALL_RADIUS) >= (BORDER_OFFSET_NORTH + BORDER_HEIGHT)){
             pause(1000);
@@ -318,15 +349,30 @@ public class Breakout extends GraphicsProgram {
             pause(1000);
             lives -=1;
         }
-    }
-
-    private void isGameOver(){
-        if (lives == 0){
-            gameover = true;
-            System.out.println("THE GAME HAS ENDED!");
+        switch(lives){
+            case 2:
+                remove(life3);
+                break;
+            case 1:
+                remove(life2);
+                break;
+            case 0:
+                remove(life1);
         }
     }
 
+    /**
+     * Checks if the game is over by checking if lives == 0.
+     */
+    private void isGameOver(){
+        if (lives == 0){
+            gameover = true;
+        }
+    }
+
+    /**
+     * Aggregates relevant game-playing functions.
+     */
     private void playGame(){
         addKeyListeners();
         ballHandler();
@@ -365,6 +411,6 @@ public class Breakout extends GraphicsProgram {
             playGame();
         }
         // Loop will only be exited if the game is over.
-
+        initializeGameOverBanner();
     }
 }
