@@ -1,9 +1,7 @@
 import acm.graphics.*;
 import acm.program.GraphicsProgram;
-import acm.util.MediaTools;
 import acm.util.RandomGenerator;
 
-import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
@@ -11,8 +9,8 @@ import java.awt.event.KeyEvent;
 public class Breakout extends GraphicsProgram {
 
     // Screen data
-    private final int SCREEN_WIDTH          = 416;
-    private final int SCREEN_HEIGHT         = 716;
+    private final int SCREEN_WIDTH  = 416;
+    private final int SCREEN_HEIGHT = 716;
 
     // Border data
     private final int BORDER_WIDTH = 400;
@@ -32,6 +30,7 @@ public class Breakout extends GraphicsProgram {
     // Ball data
     private final int BALL_RADIUS           = 10;
     private final GOval ball = new GOval(BALL_RADIUS, BALL_RADIUS);
+    private double velocity_x, velocity_y;
 
     // Brick data
     private final int BRICK_WIDTH           = 36;
@@ -54,13 +53,20 @@ public class Breakout extends GraphicsProgram {
     private final GRect livesContainer = new GRect(LIVES_CONTAINER_WIDTH,
                                                    LIVES_CONTAINER_HEIGHT);
 
+    // Score data
+    private int score = 0;
+    private final int MAX_SCORE = 10000; // (100 per brick)*(100 bricks)
+    private final GLabel scoreboard = new GLabel("" + score);
+//    private final GRect scoreboardContainer = new Grect()
 
-    private final GLabel gameOverBanner = new GLabel("GAMEOVER");
+    // Gameover Banner data
+    private final GLabel gameoverBanner = new GLabel("GAMEOVER");
+
     // Game logistics data
     private boolean gameover = false;
-    private double velocity_x, velocity_y;
 
-    AudioClip bounceSound = MediaTools.loadAudioClip("bounce.au");
+
+//    private AudioClip bounceSound = MediaTools.loadAudioClip("bounce.au");
 
     /**
      * Set the size of the screen and set the background color as GRAY.
@@ -80,13 +86,6 @@ public class Breakout extends GraphicsProgram {
         x = (SCREEN_WIDTH - header.getWidth()) / 2;
         y = header.getHeight();
         header.setLocation(x, y);
-        life1.setFillColor(Color.WHITE);
-        life2.setFillColor(Color.WHITE);
-        life3.setFillColor(Color.WHITE);
-        life1.setFilled(true);
-        life2.setFilled(true);
-        life3.setFilled(true);
-
         add(header);
     }
 
@@ -213,15 +212,28 @@ public class Breakout extends GraphicsProgram {
         }
     }
 
+    private void initializeScoreboard(){
+        double x = SCREEN_WIDTH / 8;
+        double y = (BORDER_OFFSET_NORTH + scoreboard.getAscent()) / 2;
+        scoreboard.setFont("Helvetica-30");
+        scoreboard.setColor(Color.WHITE);
+        scoreboard.setLocation(x, y);
+        add(scoreboard);
+    }
+
     /**
      * Create, position, and add the gameover banner to the screen.
      */
     private void initializeGameOverBanner(){
-        double x = (SCREEN_WIDTH - gameOverBanner.getWidth()) / 4;
+        double x = (SCREEN_WIDTH - gameoverBanner.getWidth()) / 4;
         double y = SCREEN_HEIGHT / 2;
-        gameOverBanner.setFont("Helvetica-80");
-        gameOverBanner.setLocation(x, y);
-        add(gameOverBanner);
+        gameoverBanner.setFont("Helvetica-40");
+        gameoverBanner.setLocation(x, y);
+        add(gameoverBanner);
+    }
+
+    private void initializeYouWonBanner(){
+
     }
 
     /**
@@ -231,6 +243,7 @@ public class Breakout extends GraphicsProgram {
         initializeScreen();
         initializeHeader();
         initializeBorder();
+        initializeScoreboard();
         initializeLives();
         initializePaddle();
         initializeBall();
@@ -251,8 +264,8 @@ public class Breakout extends GraphicsProgram {
         RandomGenerator rgen = new RandomGenerator();
         do {
             velocity_x = rgen.nextDouble(-5, 5);
-            velocity_y = rgen.nextDouble(-5, 5);
-        }while((velocity_x < 3) && (velocity_y < 3));
+            velocity_y = rgen.nextDouble(3, 5);
+        }while(Math.abs(velocity_x) < 3);
     }
 
     /**
@@ -323,24 +336,23 @@ public class Breakout extends GraphicsProgram {
         remove(brick);
     }
 
-
     /**
      * ballHandler() will change the velocity of the ball if it collides with
      * a surface.
      */
     private void ballHandler(){
         if (isCollidingWithHorizontalWall()){
-            bounceSound.play();
+//            bounceSound.play();
             velocity_x = -velocity_x;
         } else if (isCollidingWithVerticalWall()) {
-            bounceSound.play();
+//            bounceSound.play();
             velocity_y = -velocity_y;
         } else if (isCollidingWithPaddle()) {
-            bounceSound.play();
+//            bounceSound.play();
             velocity_y = -velocity_y;
         } else if (isCollidingWithBrick()){
                 brickCollisionHandler();
-                bounceSound.play();
+//                bounceSound.play();
         }
         moveBall();
     }
@@ -372,24 +384,18 @@ public class Breakout extends GraphicsProgram {
      * Checks if the game is over by checking if lives == 0.
      */
     private void isGameOver(){
-        if (lives == 0){
+        if (lives == 0 || score == MAX_SCORE){
             gameover = true;
         }
     }
 
-    /**
-     * Aggregates relevant game-playing functions.
-     */
-    private void playGame(){
-        addKeyListeners();
-        ballHandler();
-        isLifeLost();
-        isGameOver();
-        pause(15);
+    private void keepScore(){
+        score += 100;
     }
 
     /**
-     * Register left-arrow-key and right-arrow-key events to move paddle.
+     * Register left-arrow-key and right-arrow-key events to move paddle. This
+     * function also moves the paddle.
      * @param event
      */
     public void keyPressed(KeyEvent event){
@@ -409,6 +415,17 @@ public class Breakout extends GraphicsProgram {
     }
 
     /**
+     * Aggregates relevant game-playing functions.
+     */
+    private void playGame(){
+        addKeyListeners();
+        ballHandler();
+        isLifeLost();
+        isGameOver();
+        pause(15);
+    }
+
+    /**
      * Run initialize() to initialize screen-size, paddle, bricks, and ball.
      * Run game loop.
      */
@@ -418,6 +435,10 @@ public class Breakout extends GraphicsProgram {
             playGame();
         }
         // Loop will only be exited if the game is over.
-        initializeGameOverBanner();
+        if(lives == 0) {
+            initializeGameOverBanner();
+        } else if (score == MAX_SCORE){
+            //initializeYouWonBanner();
+        }
     }
 }
