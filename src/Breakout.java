@@ -3,9 +3,7 @@ import acm.program.GraphicsProgram;
 import acm.util.RandomGenerator;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-
 
 public class Breakout extends GraphicsProgram {
 
@@ -30,7 +28,7 @@ public class Breakout extends GraphicsProgram {
     // Ball data
     private final int BALL_DIAMETER = 10;
     private final GOval ball = new GOval(BALL_DIAMETER, BALL_DIAMETER);
-    private double velocity_x, velocity_y;
+    private double velocityX, velocityY;
 
     // Brick data
     private final int BRICK_WIDTH    = 36;
@@ -190,7 +188,7 @@ public class Breakout extends GraphicsProgram {
      * Create and fill the bricks with color.
      */
     private void initializeBricks(){
-        int xCoord = 0, yCoord = 0;
+        int xCoord, yCoord;
 
         for (int row = 0; row < BRICKS_IN_ROW; row++) {
             if (row == 0) {
@@ -213,6 +211,9 @@ public class Breakout extends GraphicsProgram {
         }
     }
 
+    /**
+     * Create and add scoreboard to screen.
+     */
     private void initializeScoreboard(){
         double x = SCREEN_WIDTH / 8;
         double y = (BORDER_OFFSET_NORTH + scoreboard.getAscent()) / 2;
@@ -222,6 +223,10 @@ public class Breakout extends GraphicsProgram {
         add(scoreboard);
     }
 
+    /**
+     * Displays the banner taken as a parameter to the screen.
+     * @param banner is either gameoverBanner or youWonBanner.
+     */
     private void initializeBanner(GLabel banner){
         double x = (SCREEN_WIDTH - banner.getWidth()) / 4;
         double y = SCREEN_HEIGHT / 2;
@@ -245,21 +250,18 @@ public class Breakout extends GraphicsProgram {
     }
 
     /**
-     * Moves the ball according to it's velocity_x and velocity_y factors.
+     * Moves the ball according to it's velocityX and velocityY factors.
      */
     private void moveBall(){
-        ball.setLocation(ball.getX() + velocity_x,ball.getY() + velocity_y);
+        ball.setLocation(ball.getX() + velocityX,ball.getY() + velocityY);
     }
 
     /**
-     * Randomly assign initial @velocity_x and @velocity_y factors.
+     * Randomly assign initial @velocityX and @velocityY factors.
      */
     private void assignInitialVelocities(){
-        RandomGenerator rgen = new RandomGenerator();
-        do {
-            velocity_x = 6;
-            velocity_y = 6;
-        }while(Math.abs(velocity_x) < 3);
+            velocityX = 7;
+            velocityY = 7;
     }
 
     /**
@@ -317,9 +319,9 @@ public class Breakout extends GraphicsProgram {
         double ballRight = (ballLeft + ball.getWidth());
         GObject brick = getElementAt(ball.getLocation());
         if ((brick.getX() <= ballLeft) || (brick.getX() >= ballRight)){
-            velocity_y = -velocity_y;
+            velocityY = -velocityY;
         } else if((brick.getY() <= ballTop) || (brick.getY() >= ballBottom)){
-            velocity_x = -velocity_x;
+            velocityX = -velocityX;
         }
         remove(brick);
     }
@@ -330,26 +332,26 @@ public class Breakout extends GraphicsProgram {
      */
     private void ballHandler() {
         if (isCollidingWithHorizontalWall()) {
-            velocity_x = -velocity_x;
+            velocityX = -velocityX;
 
         } else if (isCollidingWithTopWall()) {
-            velocity_y = -velocity_y;
+            velocityY = -velocityY;
 
         } else if (isCollidingWithPaddle()){
             // If ball strikes left half of paddle...
             if(ball.getX() < (paddle.getX() + (PADDLE_WIDTH/2) )){
                 // and it's traveling rightward, then reverse direction.
-                if (velocity_x > 0){
-                    velocity_x = - velocity_x;
+                if (velocityX > 0){
+                    velocityX = -velocityX;
                 }
             // If ball strikes right half of paddle...
             } else if (ball.getX() >= (paddle.getX() + (PADDLE_WIDTH/2))){
                 // and it's traveling leftward, then reverse direction.
-                if (velocity_x < 0){
-                    velocity_x = -velocity_x;
+                if (velocityX < 0){
+                    velocityX = -velocityX;
                 }
             }
-            velocity_y = -velocity_y;
+            velocityY = -velocityY;
 
         } else if (isCollidingWithBrick()){
                 brickCollisionHandler();
@@ -407,6 +409,10 @@ public class Breakout extends GraphicsProgram {
         }
     }
 
+    /**
+     * Handle mouse movements (which move the paddle).
+     * @param event is the mouse movement.
+     */
     public void mouseMoved(MouseEvent event){
         if(event.getX() > BORDER_OFFSET &&
                 event.getX() < BORDER_OFFSET + BORDER_WIDTH - PADDLE_WIDTH) {
@@ -424,7 +430,6 @@ public class Breakout extends GraphicsProgram {
         isGameOver();
         pause(20);
     }
-
 
     /**
      * Run initialize() to initialize screen-size, paddle, bricks, and ball.
