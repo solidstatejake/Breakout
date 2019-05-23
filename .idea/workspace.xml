@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="df0f53c2-d39f-4ad9-8fd9-425d4c9276df" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Breakout/Breakout.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Breakout/Breakout.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Breakout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Breakout.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -19,21 +18,12 @@
       <file leaf-file-name="Breakout.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Breakout.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="330" column="7" lean-forward="true" selection-start-line="302" selection-end-line="315" />
+            <state relative-caret-position="361">
+              <caret line="388" column="37" selection-start-line="388" selection-start-column="37" selection-end-line="388" selection-end-column="37" />
               <folding>
                 <element signature="e#14860#14861#0" expanded="true" />
                 <element signature="e#14888#14889#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GRect.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/Downloads/acm.jar!/acm/graphics/GRect.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1020">
-              <caret line="77" column="22" selection-start-line="77" selection-start-column="22" selection-end-line="77" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -52,6 +42,7 @@
       <find>border_offset</find>
       <find>move</find>
       <find>ball_RADIUS</find>
+      <find>SCREEN_HEIGHT</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -86,8 +77,8 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="211" />
-    <option name="y" value="43" />
+    <option name="x" value="179" />
+    <option name="y" value="28" />
     <option name="width" value="1352" />
     <option name="height" value="1027" />
   </component>
@@ -229,15 +220,15 @@
       <workItem from="1558555642408" duration="2907000" />
       <workItem from="1558558959814" duration="8756000" />
       <workItem from="1558579847942" duration="6506000" />
-      <workItem from="1558633098347" duration="888000" />
+      <workItem from="1558633098347" duration="5019000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56504000" />
+    <option name="totallyTimeSpent" value="60635000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="211" y="43" width="1352" height="1027" extended-state="0" />
+    <frame x="179" y="28" width="1352" height="1027" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
@@ -250,8 +241,8 @@
       <window_info anchor="right" id="Maven Projects" order="3" weight="0.32967034" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32903227" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.18709677" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.11612903" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.18709677" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="1.0" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18778627" />
@@ -518,6 +509,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
           <caret line="3359" column="42" selection-start-line="3359" selection-start-column="42" selection-end-line="3359" selection-end-column="42" />
+          <folding>
+            <element signature="e#115728#115729#0" expanded="true" />
+            <element signature="e#115776#115777#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -542,10 +537,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$USER_HOME$/Downloads/acm.jar!/acm/graphics/GLine.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Breakout.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="330" column="7" lean-forward="true" selection-start-line="302" selection-end-line="315" />
+        <state relative-caret-position="361">
+          <caret line="388" column="37" selection-start-line="388" selection-start-column="37" selection-end-line="388" selection-end-column="37" />
           <folding>
             <element signature="e#14860#14861#0" expanded="true" />
             <element signature="e#14888#14889#0" expanded="true" />

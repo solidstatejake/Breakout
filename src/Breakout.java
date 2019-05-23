@@ -263,56 +263,15 @@ public class Breakout extends GraphicsProgram {
         }while(Math.abs(velocity_x) < 3);
     }
 
-    private boolean isCollidingWithPaddleLEFT(){
-        GPoint ballRight = new GPoint(ball.getX() + (2 * BALL_DIAMETER),
-                                    ball.getY() + BALL_DIAMETER);
-        GLine paddleLeft = new GLine(paddle.getX(), paddle.getY(),
-                                paddle.getX(), paddle.getY() + PADDLE_HEIGHT);
-
-        return (paddleLeft.contains(ballRight));
-
-    }
-
-    private boolean isCollidingWithPaddleRIGHT(){
-        GPoint ballLeft = new GPoint(ball.getX(), ball.getY() + BALL_DIAMETER);
-        GLine paddleRight = new GLine(paddle.getX() + PADDLE_WIDTH, getY(),
-                                        paddle.getX() + PADDLE_WIDTH, paddle.getY() + PADDLE_HEIGHT);
-        return (paddleRight.contains(ballLeft));
-    }
-
-    private boolean isCollidingWithPaddleTOPLEFT(){
-        GPoint ballBottom = new GPoint(ball.getX() + BALL_DIAMETER, ball.getY() + (2* BALL_DIAMETER));
-        GLine paddleTop = new GLine(paddle.getX(), paddle.getY(),
-                                paddle.getX() + (PADDLE_WIDTH/2), paddle.getY());
-
-        return (paddleTop.contains(ballBottom));
-    }
-
-    private boolean isCollidingWithPaddleTOPRIGHT(){
-        GPoint ballBottom = new GPoint(ball.getX() + BALL_DIAMETER, ball.getY() + (2* BALL_DIAMETER));
-        GLine paddleTop = new GLine((paddle.getX() + (PADDLE_WIDTH/2)), paddle.getY(),
-                (paddle.getX() + PADDLE_WIDTH), paddle.getY());
-
-        return (paddleTop.contains(ballBottom));
-    }
-
     /**
      * Determine if the ball is colliding with the paddle.
      * @return returns true if the ball is colliding with the paddle.
      */
-//    private boolean isCollidingWithPaddle(){
-////        double ballX = ball.getX() + BALL_DIAMETER;
-////        double ballY = ball.getY() + BALL_DIAMETER;
-////        GPoint ballTop = new GPoint(ball.getX() + BALL_DIAMETER/2, ball.getY());
-////        GPoint ballBottom = new GPoint(ball.getX() + BALL_DIAMETER, ball.getY() + (2* BALL_DIAMETER));
-////        GPoint ballLeft = new GPoint(ball.getX(), ball.getY() + BALL_DIAMETER);
-////        GPoint ballRight = new GPoint(ball.getX() + (2 * BALL_DIAMETER), ball.getY() + BALL_DIAMETER);
-////        double ballTop = ball.getY();
-////        double ballBottom = (ballTop + (2 * BALL_DIAMETER));
-////        double ballLeft = ball.getX();
-////        double ballRight = (ballLeft + (2 * BALL_DIAMETER));
-//        return (isCollidingWithPaddleTOP() );
-//    }
+    private boolean isCollidingWithPaddle(){
+        double ballX = ball.getX() + ball.getWidth();
+        double ballY = ball.getY() + ball.getHeight();
+        return (getElementAt(ballX, ballY) == paddle);
+    }
 
     /**
      * Determine if the ball is colliding with the left or right wall.
@@ -321,10 +280,10 @@ public class Breakout extends GraphicsProgram {
      */
     private boolean isCollidingWithHorizontalWall(){
         double leftSideOfBall = ball.getX();
-        double rightSideOfBall = ball.getX() + (2 * BALL_DIAMETER);
-        int correctionFactor = 10, rightWall, leftWall;
+        double rightSideOfBall = ball.getX() + ball.getWidth();
+        int rightWall, leftWall;
         leftWall = BORDER_OFFSET;
-        rightWall = (BORDER_OFFSET + BORDER_WIDTH + correctionFactor);
+        rightWall = (BORDER_OFFSET + BORDER_WIDTH);
         return (leftSideOfBall <= leftWall || rightSideOfBall >= rightWall);
     }
 
@@ -333,14 +292,9 @@ public class Breakout extends GraphicsProgram {
      * @return Will return true if the ball is colliding with the top or
      *         bottom wall.
      */
-    private boolean isCollidingWithVerticalWall(){
-        double  topOfBall = ball.getY(),
-                bottomOfBall = ball.getY() + (2 * BALL_DIAMETER);
-        int correctionFactor = 10, topWall, bottomWall;
-        topWall = BORDER_OFFSET_NORTH;
-        bottomWall = BORDER_OFFSET_NORTH + BORDER_HEIGHT + correctionFactor;
-
-        return topOfBall <= topWall || bottomOfBall >= bottomWall;
+    private boolean isCollidingWithTopWall(){
+        double  topOfBall = ball.getY();
+        return topOfBall <= BORDER_OFFSET_NORTH;
     }
 
     /**
@@ -360,9 +314,9 @@ public class Breakout extends GraphicsProgram {
      */
     private void brickCollisionHandler(){
         double ballTop = ball.getY();
-        double ballBottom = (ballTop + (2 * BALL_DIAMETER));
+        double ballBottom = (ballTop + ball.getHeight());
         double ballLeft = ball.getX();
-        double ballRight = (ballLeft + (2 * BALL_DIAMETER));
+        double ballRight = (ballLeft + ball.getWidth());
         GObject brick = getElementAt(ball.getLocation());
         if ((brick.getX() <= ballLeft) || (brick.getX() >= ballRight)){
             velocity_y = -velocity_y;
@@ -380,25 +334,11 @@ public class Breakout extends GraphicsProgram {
         if (isCollidingWithHorizontalWall()) {
             velocity_x = -velocity_x;
 
-        } else if (isCollidingWithVerticalWall()) {
+        } else if (isCollidingWithTopWall()) {
             velocity_y = -velocity_y;
 
-        } else if (isCollidingWithPaddleTOPLEFT()) {
-            //Send ball back the way it came if hitting TOPLEFT from left.
-            if (velocity_x > 0) {
-                velocity_x = -velocity_x;
-            }
+        } else if (isCollidingWithPaddle()){
             velocity_y = -velocity_y;
-
-        } else if (isCollidingWithPaddleTOPRIGHT()) {
-            //Send ball back the way it came if hitting TOPRIGHT from right.
-            if (velocity_x < 0) {
-                velocity_x = -velocity_x;
-            }
-            velocity_y = -velocity_y;
-
-        } else if (isCollidingWithPaddleLEFT() || isCollidingWithPaddleRIGHT()){
-            velocity_x = - velocity_x;
 
         } else if (isCollidingWithBrick()){
                 brickCollisionHandler();
@@ -428,7 +368,8 @@ public class Breakout extends GraphicsProgram {
      * bottom of the border.
      */
     private void isLifeLost(){
-        if ((ball.getY() + BALL_DIAMETER) >= (BORDER_OFFSET_NORTH + BORDER_HEIGHT)){
+        // Multiplied by 1.5 because that's what works.
+        if ((ball.getY() +  (1.5 * ball.getHeight())) >= (BORDER_OFFSET_NORTH + BORDER_HEIGHT)){
             pause(1000);
             initializeBall();
             pause(1000);
@@ -455,33 +396,9 @@ public class Breakout extends GraphicsProgram {
         }
     }
 
-    /**
-     * Register left-arrow-key and right-arrow-key events to move paddle. This
-     * function also moves the paddle.
-     * @param event
-     */
-    public void keyPressed(KeyEvent event){
-        int key = event.getKeyCode();
-        double leftPaddleBound = BORDER_OFFSET;
-        double rightPaddleBound = SCREEN_WIDTH - BORDER_OFFSET - PADDLE_WIDTH;
-        switch(key){
-            case KeyEvent.VK_LEFT:
-                if((paddle.getX() - PADDLE_SPEED_FACTOR) > leftPaddleBound) {
-                    paddle.move(-PADDLE_SPEED_FACTOR, 0);
-                }
-                break;
-            case KeyEvent.VK_RIGHT:
-                if(paddle.getX() + PADDLE_SPEED_FACTOR < rightPaddleBound) {
-                    System.out.print(paddle.getX());
-                    paddle.move(PADDLE_SPEED_FACTOR, 0);
-                    System.out.println(" " + paddle.getX());
-                }
-        }
-    }
-
     public void mouseMoved(MouseEvent event){
         if(event.getX() > BORDER_OFFSET &&
-                event.getX() < SCREEN_WIDTH - BORDER_OFFSET - PADDLE_WIDTH) {
+                event.getX() < BORDER_OFFSET + BORDER_WIDTH - PADDLE_WIDTH) {
             paddle.setLocation(event.getX(), INITIAL_PADDLE_Y);
         }
     }
@@ -490,7 +407,6 @@ public class Breakout extends GraphicsProgram {
      * Aggregates relevant game-playing functions.
      */
     private void playGame(){
-        addKeyListeners();
         addMouseListeners();
         ballHandler();
         isLifeLost();
