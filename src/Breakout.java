@@ -26,7 +26,6 @@ public class Breakout extends GraphicsProgram {
     private final double INITIAL_PADDLE_X = (SCREEN_WIDTH - PADDLE_WIDTH) / 2;
     private final double INITIAL_PADDLE_Y = (SCREEN_HEIGHT - PADDLE_WIDTH)* 0.9;
     private final GRect paddle = new GRect(PADDLE_WIDTH, PADDLE_HEIGHT);
-    private final int PADDLE_SPEED_FACTOR = 1;
 
     // Ball data
     private final int BALL_DIAMETER = 10;
@@ -272,7 +271,6 @@ public class Breakout extends GraphicsProgram {
         double ballY = ball.getY() + ball.getHeight();
         return (getElementAt(ballX, ballY) == paddle);
     }
-
     /**
      * Determine if the ball is colliding with the left or right wall.
      * @return Will return true if the ball is colliding with the left or right
@@ -338,6 +336,19 @@ public class Breakout extends GraphicsProgram {
             velocity_y = -velocity_y;
 
         } else if (isCollidingWithPaddle()){
+            // If ball strikes left half of paddle...
+            if(ball.getX() < (paddle.getX() + (PADDLE_WIDTH/2) )){
+                // and it's traveling rightward, then reverse direction.
+                if (velocity_x > 0){
+                    velocity_x = - velocity_x;
+                }
+            // If ball strikes right half of paddle...
+            } else if (ball.getX() >= (paddle.getX() + (PADDLE_WIDTH/2))){
+                // and it's traveling leftward, then reverse direction.
+                if (velocity_x < 0){
+                    velocity_x = -velocity_x;
+                }
+            }
             velocity_y = -velocity_y;
 
         } else if (isCollidingWithBrick()){
