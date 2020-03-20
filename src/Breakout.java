@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 public class Breakout extends GraphicsProgram {
 
     // Screen data
-    private final int SCREEN_WIDTH  = 416;
+    private final int SCREEN_WIDTH = 416;
     private final int SCREEN_HEIGHT = 716;
 
     // Border data
@@ -19,10 +19,10 @@ public class Breakout extends GraphicsProgram {
     private final GRect border = new GRect(BORDER_WIDTH, BORDER_HEIGHT);
 
     // Paddle data
-    private final int PADDLE_WIDTH          = 60;
-    private final int PADDLE_HEIGHT         = 10;
+    private final int PADDLE_WIDTH = 60;
+    private final int PADDLE_HEIGHT = 10;
     private final double INITIAL_PADDLE_X = (SCREEN_WIDTH - PADDLE_WIDTH) / 2;
-    private final double INITIAL_PADDLE_Y = (SCREEN_HEIGHT - PADDLE_WIDTH)* 0.9;
+    private final double INITIAL_PADDLE_Y = (SCREEN_HEIGHT - PADDLE_WIDTH) * 0.9;
     private final GRect paddle = new GRect(PADDLE_WIDTH, PADDLE_HEIGHT);
 
     // Ball data
@@ -31,11 +31,11 @@ public class Breakout extends GraphicsProgram {
     private double velocityX, velocityY;
 
     // Brick data
-    private final int BRICK_WIDTH    = 36;
-    private final int BRICK_HEIGHT   = 15;
-    private final int BRICK_SPACING  = 4;
-    private final int BRICKS_IN_ROW  = 10;
-    private final int BRICKS_IN_COL  = 10;
+    private final int BRICK_WIDTH = 36;
+    private final int BRICK_HEIGHT = 15;
+    private final int BRICK_SPACING = 4;
+    private final int BRICKS_IN_ROW = 10;
+    private final int BRICKS_IN_COL = 10;
     private final int BRICK_OFFSET_X = 2;
     private final int BRICK_OFFSET_Y = 60;
 
@@ -46,10 +46,10 @@ public class Breakout extends GraphicsProgram {
     private final GOval life3 = new GOval(BALL_DIAMETER, BALL_DIAMETER);
 
     // Lives container data
-    private final int LIVES_CONTAINER_WIDTH = 2 * ( (3 * BALL_DIAMETER)); //80
+    private final int LIVES_CONTAINER_WIDTH = 2 * ((3 * BALL_DIAMETER)); //80
     private final int LIVES_CONTAINER_HEIGHT = 2 * (BALL_DIAMETER + 5);        //30
     private final GRect livesContainer = new GRect(LIVES_CONTAINER_WIDTH,
-                                                   LIVES_CONTAINER_HEIGHT);
+            LIVES_CONTAINER_HEIGHT);
 
     // Score data
     private int score = 0;
@@ -70,15 +70,15 @@ public class Breakout extends GraphicsProgram {
     /**
      * Set the size of the screen and set the background color as GRAY.
      */
-    private void initializeScreen(){
-        setSize(SCREEN_WIDTH,SCREEN_HEIGHT);
+    private void initializeScreen() {
+        setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         setBackground(Color.GRAY);
     }
 
     /**
      * Initialize the "BREAKOUT" title at the top of the screen.
      */
-    private void initializeHeader(){
+    private void initializeHeader() {
         double x, y;
         GLabel header = new GLabel("BREAKOUT");
         header.setFont("Helvetica-20");
@@ -92,7 +92,7 @@ public class Breakout extends GraphicsProgram {
      * Create the border in which the actual game is played. Color it
      * LIGHT_GRAY.
      */
-    private void initializeBorder(){
+    private void initializeBorder() {
         border.setLocation(BORDER_OFFSET, BORDER_OFFSET_NORTH);
         border.setFillColor(Color.LIGHT_GRAY);
         border.setFilled(true);
@@ -102,7 +102,7 @@ public class Breakout extends GraphicsProgram {
     /**
      * Create and display the livesContainer and three lives on the game screen.
      */
-    private void initializeLives(){
+    private void initializeLives() {
         double lifeContainerX = SCREEN_WIDTH - BORDER_OFFSET - LIVES_CONTAINER_WIDTH; //328
         double lifeContainerY = BORDER_OFFSET_NORTH - LIVES_CONTAINER_HEIGHT;         //56
         double life1_x = lifeContainerX + BALL_DIAMETER;
@@ -130,7 +130,7 @@ public class Breakout extends GraphicsProgram {
     /**
      * Create the paddle and color is BLACK.
      */
-    private void initializePaddle(){
+    private void initializePaddle() {
         paddle.setLocation(INITIAL_PADDLE_X, INITIAL_PADDLE_Y);
         paddle.setFillColor(Color.BLACK);
         paddle.setFilled(true);
@@ -140,9 +140,9 @@ public class Breakout extends GraphicsProgram {
     /**
      * Create the ball and color is WHITE.
      */
-    private void initializeBall(){
-        int     x = (SCREEN_WIDTH - BALL_DIAMETER)/2,
-                y = (SCREEN_HEIGHT - BALL_DIAMETER)/2 + BORDER_OFFSET_NORTH;
+    private void initializeBall() {
+        int x = (SCREEN_WIDTH - BALL_DIAMETER) / 2,
+                y = (SCREEN_HEIGHT - BALL_DIAMETER) / 2 + BORDER_OFFSET_NORTH;
         ball.setLocation(x, y);
         ball.setFillColor(Color.WHITE);
         ball.setFilled(true);
@@ -153,13 +153,14 @@ public class Breakout extends GraphicsProgram {
     /**
      * Helper method used in @@{initializeBrick()} to determine the color of
      * the brick based on which row it is in.
+     *
      * @param currentBrick is the current brick being created in the for-loop
      *                     in initializeBrick().
-     * @param row is the current row that the for loop is on. There are 10 rows
-     *            and 10 columns of bricks.
+     * @param row          is the current row that the for loop is on. There are 10 rows
+     *                     and 10 columns of bricks.
      */
-    private void determineBrickColor(GRect currentBrick, int row){
-        switch(row){
+    private void determineBrickColor(GRect currentBrick, int row) {
+        switch (row) {
             case 0:
             case 1:
                 currentBrick.setFillColor(Color.RED);
@@ -187,7 +188,7 @@ public class Breakout extends GraphicsProgram {
     /**
      * Create and fill the bricks with color.
      */
-    private void initializeBricks(){
+    private void initializeBricks() {
         int xCoord, yCoord;
 
         for (int row = 0; row < BRICKS_IN_ROW; row++) {
@@ -198,9 +199,9 @@ public class Breakout extends GraphicsProgram {
                         (row * ((BRICK_SPACING / 2) + BRICK_HEIGHT));
             }
             for (int col = 0; col < BRICKS_IN_COL; col++) {
-                if(col == 0){
+                if (col == 0) {
                     xCoord = BORDER_OFFSET + BRICK_OFFSET_X;
-                }else {
+                } else {
                     xCoord = BORDER_OFFSET + BRICK_OFFSET_X +
                             (col * (BRICK_SPACING + BRICK_WIDTH));
                 }
@@ -214,7 +215,7 @@ public class Breakout extends GraphicsProgram {
     /**
      * Create and add scoreboard to screen.
      */
-    private void initializeScoreboard(){
+    private void initializeScoreboard() {
         double x = SCREEN_WIDTH / 8;
         double y = (BORDER_OFFSET_NORTH + scoreboard.getAscent()) / 2;
         scoreboard.setFont("Helvetica-30");
@@ -225,9 +226,10 @@ public class Breakout extends GraphicsProgram {
 
     /**
      * Displays the banner taken as a parameter to the screen.
+     *
      * @param banner is either gameoverBanner or youWonBanner.
      */
-    private void initializeBanner(GLabel banner){
+    private void initializeBanner(GLabel banner) {
         double x = (SCREEN_WIDTH - banner.getWidth()) / 4;
         double y = SCREEN_HEIGHT / 2;
         banner.setFont("Helvetica-40");
@@ -238,7 +240,7 @@ public class Breakout extends GraphicsProgram {
     /**
      * Aggregate all initialization methods into one place.
      */
-    private void initialize(){
+    private void initialize() {
         initializeScreen();
         initializeHeader();
         initializeBorder();
@@ -252,33 +254,36 @@ public class Breakout extends GraphicsProgram {
     /**
      * Moves the ball according to it's velocityX and velocityY factors.
      */
-    private void moveBall(){
-        ball.setLocation(ball.getX() + velocityX,ball.getY() + velocityY);
+    private void moveBall() {
+        ball.setLocation(ball.getX() + velocityX, ball.getY() + velocityY);
     }
 
     /**
      * Randomly assign initial @velocityX and @velocityY factors.
      */
-    private void assignInitialVelocities(){
-            velocityX = 7;
-            velocityY = 7;
+    private void assignInitialVelocities() {
+        velocityX = 7;
+        velocityY = 7;
     }
 
     /**
      * Determine if the ball is colliding with the paddle.
+     *
      * @return returns true if the ball is colliding with the paddle.
      */
-    private boolean isCollidingWithPaddle(){
+    private boolean isCollidingWithPaddle() {
         double ballX = ball.getX() + ball.getWidth();
         double ballY = ball.getY() + ball.getHeight();
         return (getElementAt(ballX, ballY) == paddle);
     }
+
     /**
      * Determine if the ball is colliding with the left or right wall.
+     *
      * @return Will return true if the ball is colliding with the left or right
-     *         wall.
+     * wall.
      */
-    private boolean isCollidingWithHorizontalWall(){
+    private boolean isCollidingWithHorizontalWall() {
         double leftSideOfBall = ball.getX();
         double rightSideOfBall = ball.getX() + ball.getWidth();
         int rightWall, leftWall;
@@ -289,21 +294,23 @@ public class Breakout extends GraphicsProgram {
 
     /**
      * Determine if ball is colliding with the top or bottom wall.
+     *
      * @return Will return true if the ball is colliding with the top or
-     *         bottom wall.
+     * bottom wall.
      */
-    private boolean isCollidingWithTopWall(){
-        double  topOfBall = ball.getY();
+    private boolean isCollidingWithTopWall() {
+        double topOfBall = ball.getY();
         return topOfBall <= BORDER_OFFSET_NORTH;
     }
 
     /**
      * Determine if the ball is colliding with a brick.
+     *
      * @return Will return true if the ball is not colliding with the border and
-     *         the ball is not colliding with the paddle. AKA the ball is
-     *         colliding with a brick.
+     * the ball is not colliding with the paddle. AKA the ball is
+     * colliding with a brick.
      */
-    private boolean isCollidingWithBrick(){
+    private boolean isCollidingWithBrick() {
         GObject collidingObject;
         collidingObject = getElementAt(ball.getLocation());
         return ((collidingObject != border) && (collidingObject != paddle));
@@ -312,15 +319,15 @@ public class Breakout extends GraphicsProgram {
     /**
      * Handle collisions between the ball and bricks.
      */
-    private void brickCollisionHandler(){
+    private void brickCollisionHandler() {
         double ballTop = ball.getY();
         double ballBottom = (ballTop + ball.getHeight());
         double ballLeft = ball.getX();
         double ballRight = (ballLeft + ball.getWidth());
         GObject brick = getElementAt(ball.getLocation());
-        if ((brick.getX() <= ballLeft) || (brick.getX() >= ballRight)){
+        if ((brick.getX() <= ballLeft) || (brick.getX() >= ballRight)) {
             velocityY = -velocityY;
-        } else if((brick.getY() <= ballTop) || (brick.getY() >= ballBottom)){
+        } else if ((brick.getY() <= ballTop) || (brick.getY() >= ballBottom)) {
             velocityX = -velocityX;
         }
         remove(brick);
@@ -337,25 +344,25 @@ public class Breakout extends GraphicsProgram {
         } else if (isCollidingWithTopWall()) {
             velocityY = -velocityY;
 
-        } else if (isCollidingWithPaddle()){
+        } else if (isCollidingWithPaddle()) {
             // If ball strikes left half of paddle...
-            if(ball.getX() < (paddle.getX() + (PADDLE_WIDTH/2) )){
+            if (ball.getX() < (paddle.getX() + (PADDLE_WIDTH / 2))) {
                 // and it's traveling rightward, then reverse direction.
-                if (velocityX > 0){
+                if (velocityX > 0) {
                     velocityX = -velocityX;
                 }
-            // If ball strikes right half of paddle...
-            } else if (ball.getX() >= (paddle.getX() + (PADDLE_WIDTH/2))){
+                // If ball strikes right half of paddle...
+            } else if (ball.getX() >= (paddle.getX() + (PADDLE_WIDTH / 2))) {
                 // and it's traveling leftward, then reverse direction.
-                if (velocityX < 0){
+                if (velocityX < 0) {
                     velocityX = -velocityX;
                 }
             }
             velocityY = -velocityY;
 
-        } else if (isCollidingWithBrick()){
-                brickCollisionHandler();
-                updateScoreboard();
+        } else if (isCollidingWithBrick()) {
+            brickCollisionHandler();
+            updateScoreboard();
         }
         moveBall();
     }
@@ -363,7 +370,7 @@ public class Breakout extends GraphicsProgram {
     /**
      * Updates the score. Called in updateScoreboard().
      */
-    private void updateScore(){
+    private void updateScore() {
         score += 100;
     }
 
@@ -371,7 +378,7 @@ public class Breakout extends GraphicsProgram {
      * Updates the score and updates the scoreboard GLabel. Called in
      * ballHandler().
      */
-    private void updateScoreboard(){
+    private void updateScoreboard() {
         updateScore();
         scoreboard.setLabel("" + score);
     }
@@ -380,15 +387,15 @@ public class Breakout extends GraphicsProgram {
      * Checks if the player has lost a life by checking if the ball has hit the
      * bottom of the border.
      */
-    private void isLifeLost(){
+    private void isLifeLost() {
         // Multiplied by 1.5 because that's what works.
-        if ((ball.getY() +  (1.5 * ball.getHeight())) >= (BORDER_OFFSET_NORTH + BORDER_HEIGHT)){
+        if ((ball.getY() + (1.5 * ball.getHeight())) >= (BORDER_OFFSET_NORTH + BORDER_HEIGHT)) {
             pause(1000);
             initializeBall();
             pause(1000);
-            lives -=1;
+            lives -= 1;
         }
-        switch(lives){
+        switch (lives) {
             case 2:
                 remove(life3);
                 break;
@@ -403,18 +410,19 @@ public class Breakout extends GraphicsProgram {
     /**
      * Checks if the game is over by checking if lives == 0.
      */
-    private void isGameOver(){
-        if (lives == 0 || score == MAX_SCORE){
+    private void isGameOver() {
+        if (lives == 0 || score == MAX_SCORE) {
             gameover = true;
         }
     }
 
     /**
      * Handle mouse movements (which move the paddle).
+     *
      * @param event is the mouse movement.
      */
-    public void mouseMoved(MouseEvent event){
-        if(event.getX() > BORDER_OFFSET &&
+    public void mouseMoved(MouseEvent event) {
+        if (event.getX() > BORDER_OFFSET &&
                 event.getX() < BORDER_OFFSET + BORDER_WIDTH - PADDLE_WIDTH) {
             paddle.setLocation(event.getX(), INITIAL_PADDLE_Y);
         }
@@ -423,7 +431,7 @@ public class Breakout extends GraphicsProgram {
     /**
      * Aggregates relevant game-playing functions.
      */
-    private void playGame(){
+    private void playGame() {
         addMouseListeners();
         ballHandler();
         isLifeLost();
@@ -435,13 +443,15 @@ public class Breakout extends GraphicsProgram {
      * Run initialize() to initialize screen-size, paddle, bricks, and ball.
      * Run game loop.
      */
-    public void run(){
+    public void run() {
         initialize();
         pause(1000);
-        while(!gameover){ playGame(); }
-        if(lives == 0) {
+        while (!gameover) {
+            playGame();
+        }
+        if (lives == 0) {
             initializeBanner(gameoverBanner);
-        } else if (score == MAX_SCORE){
+        } else if (score == MAX_SCORE) {
             initializeBanner(youWonBanner);
         }
     }
